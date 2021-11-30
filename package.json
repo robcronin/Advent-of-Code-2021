@@ -1,0 +1,36 @@
+{
+  "scripts": {
+    "test": "jest --watch",
+    "coverage": "jest --coverage",
+    "test:all": "jest",
+    "compile": "tsc",
+    "day": "scripts/newDay.sh"
+  },
+  "name": "advent-of-code-typescript-starter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "https://github.com/bpiggin",
+  "license": "MIT",
+  "dependencies": {
+    "jest": "^27.4.2",
+    "typescript": "^4.5.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-typescript": "^7.16.0",
+    "@types/jest": "^27.0.3",
+    "babel-jest": "^27.4.2",
+    "prettier": "2.5.0"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "statements": 100,
+        "branches": 100,
+        "functions": 100,
+        "lines": 100
+      }
+    }
+  }
+}
