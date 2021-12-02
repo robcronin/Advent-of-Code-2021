@@ -15,7 +15,7 @@ const mapToNumberIfNecessary = (input: string[]) => {
   return input;
 };
 
-const parseLines = (input: string, delimiter?: string) => {
+export const parseLines = (input: string, delimiter?: string) => {
   const inputArray = input.split(delimiter || getDelimiter(input));
   return inputArray.map((element) => element.trim());
 };
