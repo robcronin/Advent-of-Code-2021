@@ -2,7 +2,10 @@ import { parseLines } from '../utils/input';
 
 export const parseBinary = (input: string) => {
   const parsed = parseLines(input);
-  const maxLength = parsed[0].length;
+  const maxLength = parsed.reduce(
+    (max, binary) => (binary.length > max ? binary.length : max),
+    parsed[0].length,
+  );
   return { data: parsed.map((binary) => parseInt(binary, 2)), maxLength };
 };
 
@@ -12,13 +15,8 @@ const getNum1s = (input: number[], power: number) =>
     return count;
   }, 0);
 
-const getPowerList = (length: number) => {
-  const powers = [];
-  for (let i = 0; i < length; i++) {
-    powers.push(2 ** i);
-  }
-  return powers;
-};
+const getPowerList = (length: number) =>
+  [...Array(length).keys()].map((i) => 2 ** i);
 
 const filterOnCriteria = (
   input: number[],
