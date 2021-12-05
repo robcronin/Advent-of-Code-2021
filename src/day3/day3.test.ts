@@ -42,3 +42,12 @@ describe('day 3 part 2', () => {
     expect(answer).toBe(903810);
   });
 });
+
+describe('parseBinary', () => {
+  it('should parse the binary to numbers and return the max length number', () => {
+    expect(
+      parseBinary(`10
+    111`),
+    ).toEqual({ data: [2, 7], maxLength: 3 });
+  });
+});
