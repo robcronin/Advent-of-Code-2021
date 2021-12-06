@@ -1,4 +1,8 @@
 type FishCount = Record<number, number | undefined>;
+type FishSpawns = FishCount;
+
+const NEW_SPAWN = 9;
+const MAIN_SPAWN = 7;
 
 export const getStartingFishCount = (input: number[]): FishCount =>
   input.reduce((total: FishCount, days) => {
@@ -26,8 +30,8 @@ export const breedFish = ({
     }
     const numBreeders = currentFish[0];
     if (numBreeders) {
-      newFish[8] = numBreeders;
-      newFish[6] = newFish[6] ? newFish[6] + numBreeders : numBreeders;
+      newFish[NEW_SPAWN - 1] = numBreeders;
+      newFish[MAIN_SPAWN - 1] = (newFish[MAIN_SPAWN - 1] || 0) + numBreeders;
     }
     return newFish;
   }, fish);
@@ -53,3 +57,27 @@ export const day6 = (input: number[]) =>
 
 export const day6part2 = (input: number[]) =>
   caculateEndFish({ input, totalDays: 256 });
+
+const generateNumSpawns = (max: number): FishSpawns =>
+  [...Array(max).keys()].reduce((spawns: FishSpawns, i) => {
+    const numChildren = Math.floor((i - 1) / MAIN_SPAWN) + 1;
+    const childSpawnDays = [...Array(numChildren).keys()]
+      .map((child) => i - NEW_SPAWN - child * MAIN_SPAWN)
+      .filter((days) => days > 0);
+    const expChildren = childSpawnDays.reduce(
+      (sum, day) => sum + (spawns[day] || 0) - 1,
+      0,
+    );
+    return { ...spawns, [i]: 1 + numChildren + expChildren };
+  }, {});
+
+export const day6Maths = ({
+  input,
+  totalDays,
+}: {
+  input: number[];
+  totalDays: number;
+}) => {
+  const spawns = generateNumSpawns(totalDays);
+  return input.reduce((sum, days) => sum + (spawns[totalDays - days] || 0), 0);
+};

@@ -4,6 +4,7 @@ import {
   breedFish,
   caculateEndFish,
   day6,
+  day6Maths,
   day6part2,
   getStartingFishCount,
   sumTotalFish,
@@ -75,5 +76,27 @@ describe('breedFish', () => {
 describe('sumTotalFish', () => {
   it('should sum all the fish', () => {
     expect(sumTotalFish({ 0: 1, 3: 4 })).toBe(5);
+  });
+});
+
+describe('day 6 Maths', () => {
+  it('smaller test cases', () => {
+    expect(day6Maths({ input: testData, totalDays: 18 })).toBe(26);
+  });
+  it('test cases', () => {
+    expect(day6Maths({ input: testData, totalDays: 80 })).toBe(5934);
+  });
+
+  it('answer part 1', () => {
+    const answer = day6Maths({ input: data, totalDays: 80 });
+    logAnswer(answer, 6, 1);
+    expect(typeof answer).toBe('number');
+    expect(answer).toBe(380612);
+  });
+  it('answer part 2', () => {
+    const answer = day6Maths({ input: data, totalDays: 256 });
+    logAnswer(answer, 6, 1);
+    expect(typeof answer).toBe('number');
+    expect(answer).toBe(1710166656900);
   });
 });
