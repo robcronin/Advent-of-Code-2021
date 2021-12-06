@@ -2,6 +2,7 @@ import { parseInput } from '../utils/input';
 import { logAnswer } from '../utils/logging';
 import {
   breedFish,
+  caculateEndFish,
   day6,
   day6part2,
   getStartingFishCount,
@@ -14,6 +15,10 @@ const testData = parseInput(testString) as number[];
 const data = parseInput(input) as number[];
 
 describe('day 6', () => {
+  it('smaller test cases', () => {
+    expect(caculateEndFish({ input: testData, totalDays: 18 })).toBe(26);
+  });
+
   it('test cases', () => {
     expect(day6(testData)).toBe(5934);
   });

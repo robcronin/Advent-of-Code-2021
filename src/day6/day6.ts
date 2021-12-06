@@ -35,18 +35,21 @@ export const breedFish = ({
 export const sumTotalFish = (fish: FishCount): number =>
   Object.values(fish).reduce((sum: number, num) => (num ? sum + num : sum), 0);
 
-export const day6 = (input: number[]) => {
-  const totalDays = 80;
+export const caculateEndFish = ({
+  input,
+  totalDays,
+}: {
+  input: number[];
+  totalDays: number;
+}) => {
   const startingFish = getStartingFishCount(input);
   const endFish = breedFish({ fish: startingFish, totalDays });
 
   return sumTotalFish(endFish);
 };
 
-export const day6part2 = (input: number[]) => {
-  const totalDays = 256;
-  const startingFish = getStartingFishCount(input);
-  const endFish = breedFish({ fish: startingFish, totalDays });
+export const day6 = (input: number[]) =>
+  caculateEndFish({ input, totalDays: 80 });
 
-  return sumTotalFish(endFish);
-};
+export const day6part2 = (input: number[]) =>
+  caculateEndFish({ input, totalDays: 256 });
