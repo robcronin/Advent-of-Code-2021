@@ -1,3 +1,5 @@
+import { range } from '../utils/looping';
+
 type FishCount = Record<number, number | undefined>;
 type FishSpawns = FishCount;
 
@@ -20,7 +22,7 @@ export const breedFish = ({
   fish: FishCount;
   totalDays: number;
 }): FishCount =>
-  [...Array(totalDays).keys()].reduce((currentFish) => {
+  range(totalDays).reduce((currentFish) => {
     const newFish: FishCount = {};
     for (const key of Object.keys(currentFish)) {
       const day = +key;
@@ -59,9 +61,9 @@ export const day6part2 = (input: number[]) =>
   caculateEndFish({ input, totalDays: 256 });
 
 const generateNumSpawns = (max: number): FishSpawns =>
-  [...Array(max).keys()].reduce((spawns: FishSpawns, i) => {
+  range(max).reduce((spawns: FishSpawns, i) => {
     const numChildren = Math.floor((i - 1) / MAIN_SPAWN) + 1;
-    const childSpawnDays = [...Array(numChildren).keys()]
+    const childSpawnDays = range(numChildren)
       .map((child) => i - NEW_SPAWN - child * MAIN_SPAWN)
       .filter((days) => days > 0);
     const expChildren = childSpawnDays.reduce(

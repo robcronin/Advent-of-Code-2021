@@ -1,4 +1,5 @@
 import { parseLines } from '../utils/input';
+import { range } from '../utils/looping';
 
 export const parseBinary = (input: string) => {
   const parsed = parseLines(input);
@@ -15,8 +16,7 @@ const getNum1s = (input: number[], power: number) =>
     return count;
   }, 0);
 
-const getPowerList = (length: number) =>
-  [...Array(length).keys()].map((i) => 2 ** i);
+const getPowerList = (length: number) => range(length).map((i) => 2 ** i);
 
 const filterOnCriteria = (
   input: number[],
