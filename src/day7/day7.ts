@@ -1,3 +1,5 @@
+import { range } from '../utils/looping';
+
 export const calculateFuelToTarget = (
   crabPositions: number[],
   target: number,
@@ -14,12 +16,10 @@ export const calculateMinFuel = (
 ): number => {
   const min = Math.min(...crabPositions);
   const max = Math.max(...crabPositions);
-  let minFuel = calculateFuelToTarget(crabPositions, min, fuelForSteps);
-  for (let i = min + 1; i <= max; i++) {
-    const fuel = calculateFuelToTarget(crabPositions, i, fuelForSteps);
-    if (fuel < minFuel) minFuel = fuel;
-  }
-  return minFuel;
+  return range(min, max + 1).reduce((minFuel, position) => {
+    const fuel = calculateFuelToTarget(crabPositions, position, fuelForSteps);
+    return fuel < minFuel ? fuel : minFuel;
+  }, calculateFuelToTarget(crabPositions, min, fuelForSteps));
 };
 
 export const day7 = (crabPositions: number[]) =>
