@@ -1,5 +1,4 @@
-export type Grid = number[][];
-export type GridInfo = { grid: Grid; numRows: number; numCols: number };
+import { GridInfo } from './grid';
 
 const getDelimiter = (input: string) => {
   if (input.includes('\n')) {

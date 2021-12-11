@@ -8,7 +8,6 @@ import {
   getBasins,
   getBasinSizes,
   getLowestNeighbour,
-  getNeighbourCoords,
 } from './day9';
 import { input } from './day9.data';
 
@@ -43,37 +42,6 @@ describe('day 9 part 2', () => {
     logAnswer(answer, 9, 2);
     expect(typeof answer).toBe('number');
     expect(answer).toBe(1564640);
-  });
-});
-
-describe('getNeighbourCoords', () => {
-  const gridInfo = { grid: [], numRows: 5, numCols: 6 };
-  it('should return 2 neighbours for top left corner', () => {
-    expect(getNeighbourCoords({ coords: { x: 0, y: 0 }, gridInfo })).toEqual([
-      { x: 1, y: 0 },
-      { x: 0, y: 1 },
-    ]);
-  });
-  it('should return 2 neighbours for bottom right corner', () => {
-    expect(getNeighbourCoords({ coords: { x: 4, y: 5 }, gridInfo })).toEqual([
-      { x: 3, y: 5 },
-      { x: 4, y: 4 },
-    ]);
-  });
-  it('should return 3 neighbours for top row', () => {
-    expect(getNeighbourCoords({ coords: { x: 1, y: 0 }, gridInfo })).toEqual([
-      { x: 0, y: 0 },
-      { x: 2, y: 0 },
-      { x: 1, y: 1 },
-    ]);
-  });
-  it('should return 4 neighbours for middle value', () => {
-    expect(getNeighbourCoords({ coords: { x: 3, y: 4 }, gridInfo })).toEqual([
-      { x: 2, y: 4 },
-      { x: 3, y: 3 },
-      { x: 4, y: 4 },
-      { x: 3, y: 5 },
-    ]);
   });
 });
 

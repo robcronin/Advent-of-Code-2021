@@ -1,27 +1,9 @@
-import { GridInfo } from '../utils/input';
+import { Coords, getNeighbourCoords, GridInfo } from '../utils/grid';
 
 type Basins = (Coords | undefined)[][];
-type Coords = { x: number; y: number };
 type BasinSizes = Record<string, number>;
 
 const MAX_HEIGHT = 9;
-
-export const getNeighbourCoords = ({
-  coords,
-  gridInfo,
-}: {
-  coords: Coords;
-  gridInfo: GridInfo;
-}): Coords[] => {
-  const { x, y } = coords;
-  const { numRows, numCols } = gridInfo;
-  const neighbourCoords = [];
-  if (x > 0) neighbourCoords.push({ x: x - 1, y });
-  if (y > 0) neighbourCoords.push({ x, y: y - 1 });
-  if (x < numRows - 1) neighbourCoords.push({ x: x + 1, y });
-  if (y < numCols - 1) neighbourCoords.push({ x, y: y + 1 });
-  return neighbourCoords;
-};
 
 export const findLowLevels = (gridInfo: GridInfo): number[] => {
   const { grid, numRows, numCols } = gridInfo;
