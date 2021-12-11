@@ -1,3 +1,6 @@
+export type Grid = number[][];
+export type GridInfo = { grid: Grid; numRows: number; numCols: number };
+
 const getDelimiter = (input: string) => {
   if (input.includes('\n')) {
     return '\n';
@@ -26,4 +29,14 @@ export const parseLines = (input: string, delimiter?: string) => {
 export const parseInput = (input: string) => {
   const parsed = parseLines(input);
   return mapToNumberIfNecessary(parsed);
+};
+
+export const parseGridInfo = (input: string): GridInfo => {
+  const rows = parseLines(input);
+  const grid = rows.map((row) => [...row].map((height) => +height));
+  return {
+    grid,
+    numRows: rows.length,
+    numCols: grid[0].length,
+  };
 };

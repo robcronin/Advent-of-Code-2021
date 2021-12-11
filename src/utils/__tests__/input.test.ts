@@ -1,4 +1,4 @@
-import { parseInput } from '../input';
+import { parseGridInfo, parseInput } from '../input';
 
 test('Parses a newline delimited array of numbers', () => {
   const input = `142195
@@ -37,4 +37,20 @@ test('Parses a space delimited array of strings', () => {
 test('Returns an array if no delimiter present', () => {
   const input = '22222';
   expect(parseInput(input)).toStrictEqual([2, 2, 2, 2, 2]);
+});
+
+describe('parseGridInfo', () => {
+  it('should parse grid info', () => {
+    expect(
+      parseGridInfo(`123
+      456`),
+    ).toEqual({
+      grid: [
+        [1, 2, 3],
+        [4, 5, 6],
+      ],
+      numRows: 2,
+      numCols: 3,
+    });
+  });
 });
