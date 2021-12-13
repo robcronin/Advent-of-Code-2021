@@ -5,7 +5,7 @@ type BasinSizes = Record<string, number>;
 
 const MAX_HEIGHT = 9;
 
-export const findLowLevels = (gridInfo: GridInfo): number[] => {
+export const findLowLevels = (gridInfo: GridInfo<number>): number[] => {
   const { grid, numRows, numCols } = gridInfo;
   const lowLevels = [];
   for (let x = 0; x < numRows; x++) {
@@ -28,7 +28,7 @@ export const getLowestNeighbour = ({
   gridInfo,
 }: {
   coords: Coords;
-  gridInfo: GridInfo;
+  gridInfo: GridInfo<number>;
 }): Coords => {
   const neighbourCoords = getNeighbourCoords({
     coords,
@@ -51,7 +51,7 @@ export const getBasinForCoord = ({
   coords,
 }: {
   basins: Basins;
-  gridInfo: GridInfo;
+  gridInfo: GridInfo<number>;
   coords: Coords;
 }): Coords | undefined => {
   const { x, y } = coords;
@@ -69,7 +69,7 @@ export const getBasinForCoord = ({
   });
 };
 
-export const getBasins = (gridInfo: GridInfo): Basins => {
+export const getBasins = (gridInfo: GridInfo<number>): Basins => {
   const { numRows, numCols } = gridInfo;
   const basins: Basins = [[]];
   for (let x = 0; x < numRows; x++) {
@@ -90,7 +90,7 @@ export const getBasinSizes = ({
   gridInfo,
 }: {
   basins: Basins;
-  gridInfo: GridInfo;
+  gridInfo: GridInfo<number>;
 }): BasinSizes => {
   const { numRows, numCols } = gridInfo;
   const basinSizes: BasinSizes = {};
@@ -110,12 +110,12 @@ export const getBasinSizes = ({
   return basinSizes;
 };
 
-export const day9 = (gridInfo: GridInfo) => {
+export const day9 = (gridInfo: GridInfo<number>) => {
   const lowLevels = findLowLevels(gridInfo);
   return lowLevels.reduce((sum, lowLevel) => sum + lowLevel + 1, 0);
 };
 
-export const day9part2 = (gridInfo: GridInfo) => {
+export const day9part2 = (gridInfo: GridInfo<number>) => {
   const basins = getBasins(gridInfo);
 
   const basinSizes = getBasinSizes({ basins, gridInfo });

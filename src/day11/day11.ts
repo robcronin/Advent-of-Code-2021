@@ -13,7 +13,7 @@ export const runFlashInPlace = ({
   gridInfo,
   flasher,
 }: {
-  gridInfo: GridInfo;
+  gridInfo: GridInfo<number>;
   flasher: Coords;
 }): void => {
   const { grid } = gridInfo;
@@ -33,8 +33,8 @@ export const runOneSweepFlashInPlace = ({
   gridInfo,
   flashes,
 }: {
-  gridInfo: GridInfo;
-  flashes: Grid;
+  gridInfo: GridInfo<number>;
+  flashes: Grid<number>;
 }): { sweepFlashes: number } => {
   const { grid, numRows, numCols } = gridInfo;
   let sweepFlashes = 0;
@@ -56,9 +56,9 @@ export const flashWhilePossible = ({
   gridInfo,
   flashes,
 }: {
-  gridInfo: GridInfo;
-  flashes: Grid;
-}): { totalStepFlashes: number; gridInfo: GridInfo } => {
+  gridInfo: GridInfo<number>;
+  flashes: Grid<number>;
+}): { totalStepFlashes: number; gridInfo: GridInfo<number> } => {
   let totalStepFlashes = 0;
   const newGridInfo = deepCopyGrid({ gridInfo });
   while (true) {
@@ -73,8 +73,8 @@ export const flashWhilePossible = ({
 };
 
 export const runLightStep = (
-  gridInfo: GridInfo,
-): { newGridInfo: GridInfo; totalStepFlashes: number } => {
+  gridInfo: GridInfo<number>,
+): { newGridInfo: GridInfo<number>; totalStepFlashes: number } => {
   const { grid: flashes } = genNewGrid({ ...gridInfo, defaultValue: 0 });
 
   const bumpedGridInfo = runFnOnGrid({
@@ -100,7 +100,7 @@ export const getTotalFlashesOverNumSteps = ({
   gridInfo,
   numSteps,
 }: {
-  gridInfo: GridInfo;
+  gridInfo: GridInfo<number>;
   numSteps: number;
 }): number => {
   const { totalFlashes } = range(numSteps).reduce(
@@ -120,7 +120,7 @@ export const getTotalFlashesOverNumSteps = ({
 export const stepsUntilFullGridFlash = ({
   gridInfo,
 }: {
-  gridInfo: GridInfo;
+  gridInfo: GridInfo<number>;
 }): number => {
   const { numRows, numCols } = gridInfo;
   let currentGridInfo = gridInfo;
@@ -134,8 +134,8 @@ export const stepsUntilFullGridFlash = ({
   return steps;
 };
 
-export const day11 = (gridInfo: GridInfo) =>
+export const day11 = (gridInfo: GridInfo<number>) =>
   getTotalFlashesOverNumSteps({ gridInfo, numSteps: 100 });
 
-export const day11part2 = (gridInfo: GridInfo) =>
+export const day11part2 = (gridInfo: GridInfo<number>) =>
   stepsUntilFullGridFlash({ gridInfo });

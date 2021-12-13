@@ -1,7 +1,10 @@
 import {
+  countValueInGrid,
   deepCopyGrid,
   genNewGrid,
   getNeighbourCoords,
+  printGrid,
+  reversePrintGrid,
   runFnOnGrid,
 } from '../grid';
 
@@ -201,5 +204,53 @@ describe('runFnOnGrid', () => {
       numCols: 3,
       numRows: 2,
     });
+  });
+});
+
+describe('printGrid', () => {
+  it('should print the grid', () => {
+    expect(
+      printGrid({
+        grid: [
+          [2, 3, 4],
+          [3, 4, 5],
+        ],
+        numCols: 3,
+        numRows: 2,
+      }),
+    ).toBe('2 3 4 \n3 4 5 \n');
+  });
+});
+
+describe('reversePrintGrid', () => {
+  it('should reverse print the grid based on x y axis', () => {
+    expect(
+      reversePrintGrid({
+        grid: [
+          [2, 3, 4],
+          [3, 4, 5],
+        ],
+        numCols: 3,
+        numRows: 2,
+      }),
+    ).toBe('2 3 \n3 4 \n4 5 \n');
+  });
+});
+
+describe('countValueInGrid', () => {
+  it('should count the number of occurences of a value in the grid', () => {
+    expect(
+      countValueInGrid(
+        {
+          grid: [
+            [2, 3, 4],
+            [3, 4, 5],
+          ],
+          numCols: 3,
+          numRows: 2,
+        },
+        3,
+      ),
+    ).toBe(2);
   });
 });

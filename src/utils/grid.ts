@@ -1,19 +1,23 @@
 import { range } from './looping';
 
-export type Grid = number[][];
-export type GridInfo = { grid: Grid; numRows: number; numCols: number };
+export type Grid<ValueType> = ValueType[][];
+export type GridInfo<ValueType> = {
+  grid: Grid<ValueType>;
+  numRows: number;
+  numCols: number;
+};
 export type Coords = { x: number; y: number };
 
-export const genNewGrid = ({
+export const genNewGrid = <ValueType>({
   numRows,
   numCols,
   defaultValue,
 }: {
   numRows: number;
   numCols: number;
-  defaultValue: number;
-}): GridInfo => {
-  const newGrid: Grid = [];
+  defaultValue: ValueType;
+}): GridInfo<ValueType> => {
+  const newGrid: Grid<ValueType> = [];
   range(numRows).forEach((x) => {
     range(numCols).forEach((y) => {
       if (!newGrid[x]) newGrid.push([]);
@@ -23,12 +27,12 @@ export const genNewGrid = ({
   return { numRows, numCols, grid: newGrid };
 };
 
-export const deepCopyGrid = ({
+export const deepCopyGrid = <ValueType>({
   gridInfo,
 }: {
-  gridInfo: GridInfo;
-}): GridInfo => {
-  const newGrid: Grid = [];
+  gridInfo: GridInfo<ValueType>;
+}): GridInfo<ValueType> => {
+  const newGrid: Grid<ValueType> = [];
   const { numRows, numCols, grid } = gridInfo;
   range(numRows).forEach((x) => {
     range(numCols).forEach((y) => {
@@ -39,13 +43,13 @@ export const deepCopyGrid = ({
   return { numRows, numCols, grid: newGrid };
 };
 
-export const getNeighbourCoords = ({
+export const getNeighbourCoords = <ValueType>({
   coords,
   gridInfo,
   isDiagonal,
 }: {
   coords: Coords;
-  gridInfo: GridInfo;
+  gridInfo: GridInfo<ValueType>;
   isDiagonal?: boolean;
 }): Coords[] => {
   const { x, y } = coords;
@@ -65,14 +69,18 @@ export const getNeighbourCoords = ({
   return neighbourCoords;
 };
 
-export const runFnOnGrid = ({
+export const runFnOnGrid = <ValueType>({
   gridInfo,
   fnToRun,
 }: {
-  gridInfo: GridInfo;
-  fnToRun: (arg: { coords: Coords; grid: Grid; value: number }) => number;
-}): GridInfo => {
-  const newGrid: Grid = [];
+  gridInfo: GridInfo<ValueType>;
+  fnToRun: (arg: {
+    coords: Coords;
+    grid: Grid<ValueType>;
+    value: ValueType;
+  }) => ValueType;
+}): GridInfo<ValueType> => {
+  const newGrid: Grid<ValueType> = [];
   const { numRows, numCols, grid } = gridInfo;
   range(numRows).forEach((x) => {
     range(numCols).forEach((y) => {
@@ -81,4 +89,44 @@ export const runFnOnGrid = ({
     });
   });
   return { numRows, numCols, grid: newGrid };
+};
+
+export const printGrid = <ValueType>(gridInfo: GridInfo<ValueType>): string => {
+  const { numRows, numCols, grid } = gridInfo;
+  return range(numRows).reduce(
+    (printValue, x) =>
+      printValue +
+      range(numCols).reduce((row, y) => row + grid[x][y] + ' ', '') +
+      '\n',
+    '',
+  );
+};
+
+export const reversePrintGrid = <ValueType>(
+  gridInfo: GridInfo<ValueType>,
+): string => {
+  const { numRows, numCols, grid } = gridInfo;
+  return range(numCols).reduce(
+    (printValue, y) =>
+      printValue +
+      range(numRows).reduce((row, x) => row + grid[x][y] + ' ', '') +
+      '\n',
+    '',
+  );
+};
+
+export const countValueInGrid = <ValueType>(
+  gridInfo: GridInfo<ValueType>,
+  value: ValueType,
+): number => {
+  const { numRows, numCols, grid } = gridInfo;
+  return range(numRows).reduce(
+    (sumTotal, x) =>
+      sumTotal +
+      range(numCols).reduce(
+        (sumRow, y) => (grid[x][y] === value ? sumRow + 1 : sumRow),
+        0,
+      ),
+    0,
+  );
 };
