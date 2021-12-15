@@ -30,7 +30,7 @@ export const parseInput = (input: string) => {
   return mapToNumberIfNecessary(parsed);
 };
 
-export const parseGridInfo = (input: string): GridInfo => {
+export const parseGridInfo = (input: string): GridInfo<number> => {
   const rows = parseLines(input);
   const grid = rows.map((row) => [...row].map((height) => +height));
   return {
