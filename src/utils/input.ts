@@ -39,3 +39,12 @@ export const parseGridInfo = (input: string): GridInfo<number> => {
     numCols: grid[0].length,
   };
 };
+export const parseGridInfoString = (input: string): GridInfo<string> => {
+  const rows = parseLines(input);
+  const grid = rows.map((row) => [...row]);
+  return {
+    grid,
+    numRows: rows.length,
+    numCols: grid[0].length,
+  };
+};
