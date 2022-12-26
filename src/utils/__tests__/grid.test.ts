@@ -3,6 +3,7 @@ import {
   deepCopyGrid,
   genNewGrid,
   getNeighbourCoords,
+  isCoordValid,
   printGrid,
   reversePrintGrid,
   runFnOnGrid,
@@ -252,5 +253,22 @@ describe('countValueInGrid', () => {
         3,
       ),
     ).toBe(2);
+  });
+});
+
+describe('isCoordValid', () => {
+  const gridInfo = genNewGrid({ numRows: 3, numCols: 3, defaultValue: 0 });
+  it.each([
+    [true, 1, 1],
+    [true, 0, 1],
+    [true, 1, 0],
+    [true, 2, 1],
+    [true, 1, 2],
+    [false, -1, 1],
+    [false, 3, 1],
+    [false, 1, -1],
+    [false, 1, 3],
+  ])('should return %p for %p, %p', (isValid, x, y) => {
+    expect(isCoordValid({ x, y }, gridInfo)).toBe(isValid);
   });
 });
